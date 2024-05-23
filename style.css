@@ -1,0 +1,87 @@
+body{
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+h1,h2{
+    margin: 0;
+    padding: 0;
+}
+.header{
+    height: 12.5vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+}
+.header input,button{
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: black;
+    color: white;
+}
+.header button{
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: 5px;
+}
+.ingresar{
+    margin: 0;
+}
+.tabla{
+    margin: 0;
+    padding: 10px;
+    width: 90vw;
+    height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.jugador{
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+.nombre{
+    display: flex;
+    justify-content: center;
+    width: 40%;
+}
+.stats{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+.puntos{
+    display: flex;
+    width: 100%;
+}
+.puntos input{
+    max-width: 20px;
+}
+
+.apuesta{
+    display: flex;
+    width: 100%;
+}
+.apuesta input{
+    max-width: 20px;
+}
+.comandos{
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding:15px;
+    height: 12.5vh;
+}
+
