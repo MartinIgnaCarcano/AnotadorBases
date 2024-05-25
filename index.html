@@ -1,50 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Anotador Bases</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./icono.ico" type="image/x-icon">
 </head>
+
 <body>
     <div class="header">
+    
         <h1>Agregar nombres: </h1>
+        
         <div class="ingresar">
             <input type="text" id="nombreInput" placeholder="Ingresa un nombre">
             <button onclick="agregarJugador()">Agregar Jugador</button>
         </div>
+        <h1 id="cr">CR:1</h1>
     </div>
-    
-    <div id="contenedorJugadores" class="tabla"></div>
-    <!--
-    <div class="tabla">
-        <div class="jugador">
-            <div class="nombre">
-                <h1>Nombre</h1>
-            </div>
-            <div class="stats">
-                <div class="puntos">
-                    <h2>Puntos: </h2>
-                    <input type="text" name="apuestaActual" id="">
-                </div>
-                <div class="apuesta">
-                    <h2>Apuesta: </h2>
-                    <input type="text" name="apuestaActual" id="">
-                </div>
-                <div class="gano">
-                    <button type="button" onclick="apretobotonGano(1)" id="boton1">¿Ganó?</button>
-                </div>
-            </div>
-            <div class="eliminar">
-                <button type="button" onclick="eliminarJugador()">X</button>
-            <div> 
-        </div>    
-    </div>
-    -->
-    <div class="comandos">
-        <button onclick="jugarRonda()">Terminar Ronda</button>
-        <button onclick="cambiarPuntos()">Cambiar Puntos</button>
+    <div class="pantalla">
+
+        <div id="contenedorJugadores" class="tabla"></div>
+        <div class="comandos">
+            <button onclick="jugarRonda()">Terminar Ronda</button>
+            <button onclick="chekearApuestas()" id="botonCheck">Chekear</button>
+            <button onclick="cambiarPuntos()">Cambiar Puntos</button>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>
+
 </html>

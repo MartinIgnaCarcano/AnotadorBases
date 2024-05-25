@@ -1,46 +1,103 @@
 var jugadores = []
 var apuestas = []
 var gano = []
+var ronda = 1
+var cantidad = 0
+var baja = true
+var chekeado = false
 
-function jugarRonda(){
-    llenarApuestas();
-    agregarApuestas();
-    llenarGano();
-    verificarApuestas();
-    cambioDeMano();
-    mostrarJugadores();
+function jugarRonda() {
+    if (chekeado) {
+        if (llenarGano()) {
+            llenarApuestas()
+            agregarApuestas();
+            llenarGano();
+            verificarApuestas();
+            cambioDeMano();
+            mostrarJugadores();
+            chekeado = false
+            var chekear = document.getElementById("botonCheck")
+            chekear.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+        }
+    } else {
+        alert("Las apuestas no estan chekeadas")
+    }
 }
 
-function llenarApuestas(){
-    for(var i=0; i<jugadores.length;i++){
-        var apuesta = document.getElementById("apuesta"+i)
+function chekearApuestas() {
+    var suma = 0
+    for (var i = 0; i < jugadores.length; i++) {
+        var apuesta = document.getElementById("apuesta" + i)
+        suma += Number(apuesta.value.trim())
+    }
+    var ultima = document.getElementById("apuesta" + (jugadores.length - 1)).value.trim()
+    if (suma == ronda) {
+        alert(jugadores[(jugadores.length - 1)].nombre + " debe apostar un número diferente de: " + ultima)
+        chekeado = false;
+    } else {
+        chekeado = true;
+        var chekear = document.getElementById("botonCheck")
+        chekear.style.backgroundColor = 'green'
+    }
+}
+
+function llenarApuestas() {
+    for (var i = 0; i < jugadores.length; i++) {
+        var apuesta = document.getElementById("apuesta" + i)
         apuestas[i] = Number(apuesta.value.trim())
     }
 }
 
-function llenarGano(){
+function llenarGano() {
     var boton
-    for(var i=0; i<jugadores.length;i++){
+    var devolver = false
+    for (var i = 0; i < jugadores.length; i++) {
         boton = document.getElementById("boton" + i)
         if (boton.style.backgroundColor == 'green') {
-            gano[i]=true
+            gano[i] = true
+            devolver = true
+        } else if (boton.style.backgroundColor == 'red') {
+            gano[i] = false
+            devolver = true
         } else {
-            gano[i]=false
+            alert(jugadores[i].nombre + " no selecciono gano")
+            devolver = false
+            break
         }
     }
-    
-    
+    return devolver
 }
 
 function cambioDeMano() {
-    var aux = jugadores.shift()
-    jugadores.push(aux)
+    if (ronda == 1) {
+        if (jugadores.length == 7) {
+            cantidad = 7
+        } else {
+            cantidad = 8
+        }
+    }
+    if (ronda != cantidad & baja) {
+        ronda += 1
+    } else {
+        ronda -= 1
+        baja = false
+    }
+    console.log("ronda: " + ronda)
+    console.log("cantidad: " + cantidad)
+    if (ronda == 0) {
+        buscarGanador()
+    } else {
+        var h1 = document.getElementById("cr")
+        h1.textContent = "CR: " + ronda
+        var aux = jugadores.shift()
+        jugadores.push(aux)
+    }
+
 }
 
 function agregarApuestas() {
     for (var i = 0; i < jugadores.length; i++) {
         jugadores[i].apuesta = apuestas[i]
-        console.log(jugadores[i].nombre + " = " + jugadores[i].apuesta)
     }
 }
 
@@ -111,7 +168,7 @@ function mostrarJugadores() {
         var inputApuesta = document.createElement("input");
         inputApuesta.type = "text";
         inputApuesta.name = "apuestaActual";
-        inputApuesta.id = "apuesta"+index
+        inputApuesta.id = "apuesta" + index
         inputApuesta.value = jugador.apuesta; // Establecer valor inicial
         divApuesta.appendChild(h2Apuesta);
         divApuesta.appendChild(inputApuesta);
@@ -124,7 +181,7 @@ function mostrarJugadores() {
         botonGano.textContent = "¿Ganó?";
         botonGano.id = "boton" + (index);
         botonGano.onclick = function () {
-            apretobotonGano(index) ;
+            apretobotonGano(index);
         };
         divGano.appendChild(botonGano);
 
@@ -173,12 +230,23 @@ function eliminarJugador(indice) {
     }
 }
 
-function cambiarPuntos(){
-    for(var i=0;i<jugadores.length;i++){
-        var texto = "Puntos de "+jugadores[i].nombre+" son: "+jugadores[i].puntos
-        jugadores[i].puntos=prompt(texto,jugadores[i].puntos)
+function cambiarPuntos() {
+    for (var i = 0; i < jugadores.length; i++) {
+        var texto = "Puntos de " + jugadores[i].nombre + " son: " + jugadores[i].puntos
+        jugadores[i].puntos = Number(prompt(texto, jugadores[i].puntos))
     }
     mostrarJugadores();
 }
 
+function buscarGanador() {
+    var p = 0
+    for (var i = 1; i < jugadores.length; i++) {
+        if (jugadores[i].puntos > jugadores[p].puntos) {
+            p = i
+        } else if (jugadores[i].puntos = jugadores[p].puntos) {
+            alert("REVISAR PORQUE PUEDE HABER EMPATE")
+        }
+    }
+    alert("El ganador fue: " + jugadores[p].nombre + " con " + jugadores[p].puntos + " puntos")
+}
 
