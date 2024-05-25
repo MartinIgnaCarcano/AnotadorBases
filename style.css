@@ -45,7 +45,7 @@ input::-webkit-input-placeholder { /* WebKit, Safari, Chrome */
 }
 .pantalla{
     width: 100vw;
-    height: 80vh;
+    height: 60vh;
     background-color: rgba(0, 0, 0, 0.5);
 }
 .tabla{
