@@ -27,10 +27,10 @@ function jugarRonda() {
 function chekearApuestas() {
     var suma = 0
     for (var i = 0; i < jugadores.length; i++) {
-        var apuesta = document.getElementById("apuesta" + i)
-        suma += Number(apuesta.value.trim())
+        var apuesta = document.getElementById("numeroApuesta" + i)
+        suma += Number(apuesta.innerHTML)
     }
-    var ultima = document.getElementById("apuesta" + (jugadores.length - 1)).value.trim()
+    var ultima = document.getElementById("numeroApuesta" + (jugadores.length - 1)).innerHTML
     if (suma == ronda) {
         alert(jugadores[(jugadores.length - 1)].nombre + " debe apostar un número diferente de: " + ultima)
         chekeado = false;
@@ -43,8 +43,8 @@ function chekearApuestas() {
 
 function llenarApuestas() {
     for (var i = 0; i < jugadores.length; i++) {
-        var apuesta = document.getElementById("apuesta" + i)
-        apuestas[i] = Number(apuesta.value.trim())
+        var apuesta = document.getElementById("numeroApuesta" + i)
+        apuestas[i] = Number(apuesta.innerHTML)
     }
 }
 
@@ -161,6 +161,7 @@ function mostrarJugadores() {
         divPuntos.appendChild(h2Puntos);
 
         // Crear el div de apuesta
+        /* 
         var divApuesta = document.createElement("div");
         divApuesta.className = "apuesta";
         var h2Apuesta = document.createElement("h2");
@@ -172,6 +173,44 @@ function mostrarJugadores() {
         inputApuesta.value = jugador.apuesta; // Establecer valor inicial
         divApuesta.appendChild(h2Apuesta);
         divApuesta.appendChild(inputApuesta);
+        */ 
+        //Crear el div apuesta
+        var divApuesta = document.createElement("div");
+        divApuesta.className = "apuesta";
+        //Creamos el divResta
+        var divResta = document.createElement("div");
+        divResta.className = "resta";
+        var botonResta = document.createElement("button");
+        botonResta.type = "button";
+        botonResta.textContent = "-";
+        botonResta.id = "resta"+(index)
+        botonResta.onclick = function() {
+            apretoBotonResta(index);
+        }
+        divResta.appendChild(botonResta)
+        //Crear el div numero
+        var divNumeroApuesta = document.createElement("div");
+        divNumeroApuesta.className = "numeroApuesta"
+        var h2Numero = document.createElement("h2")
+        h2Numero.textContent = "0"
+        h2Numero.id = "numeroApuesta"+(index)
+        divNumeroApuesta.appendChild(h2Numero)
+        //Crear el div suma
+        var divSuma = document.createElement("div");
+        divSuma.className = "suma";
+        var botonSuma = document.createElement("button");
+        botonSuma.type = "button";
+        botonSuma.textContent = "+";
+        botonSuma.id = "suma"+(index)
+        botonSuma.onclick = function() {
+            apretoBotonSuma(index);
+        }
+        divSuma.appendChild(botonSuma)
+
+        //Añadir a apuesta
+        divApuesta.appendChild(divResta)
+        divApuesta.appendChild(divNumeroApuesta)
+        divApuesta.appendChild(divSuma)
 
         // Crear el div de botón
         var divGano = document.createElement("div");
@@ -250,3 +289,18 @@ function buscarGanador() {
     alert("El ganador fue: " + jugadores[p].nombre + " con " + jugadores[p].puntos + " puntos")
 }
 
+function apretoBotonResta(indice){
+    var textoH2 = document.getElementById("numeroApuesta"+indice)
+    var numero = Number(textoH2.innerHTML)
+    if(numero!=0){
+        textoH2.innerHTML = numero-1
+    }
+}
+function apretoBotonSuma(indice){
+    var textoH2 = document.getElementById("numeroApuesta"+indice)
+    var numero = Number(textoH2.innerHTML)
+    if(numero<ronda){
+        textoH2.innerHTML = numero+1
+    }
+    
+}

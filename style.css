@@ -53,9 +53,8 @@ input::-webkit-input-placeholder { /* WebKit, Safari, Chrome */
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.jugador{
-    
-    height: 130px;
+.jugador{ 
+    height: 140px;
     margin: 10px;
     display: flex;
     justify-content: space-around;
@@ -77,21 +76,28 @@ input::-webkit-input-placeholder { /* WebKit, Safari, Chrome */
     align-items: center;
     gap: 15px;
 }
+
+.apuesta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.apuesta button{
+    width: 30px;
+    background-color: rgb(150,150,150);
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
 .puntos{
     display: flex;
     width: 100%;
 }
-.puntos input{
-    max-width: 20px;
-}
 
-.apuesta{
-    display: flex;
-    width: 100%;
-}
-.apuesta input{
-    max-width: 20px;
-}
 .comandos{
     height: 10%;
     display: flex;
