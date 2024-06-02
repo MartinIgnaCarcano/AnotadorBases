@@ -1,6 +1,7 @@
 html,body{
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 h1,h2{
     margin: 0;
@@ -103,4 +104,46 @@ input::-webkit-input-placeholder { /* WebKit, Safari, Chrome */
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+#botonOpciones{
+    background-color: white;
+    color: black;
+}
+.opciones{
+   
+    position: fixed; /* Fija el div en la posición relativa a la ventana del navegador */
+    top: 50%; /* Coloca el div en el medio verticalmente */
+    left: 50%; /* Coloca el div en el medio horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición para centrar exactamente */
+    z-index: 9999; /* Asegura que el div esté por encima de todos los demás elementos */
+    background-color: white; /* Fondo blanco para que se vea claro */
+    padding: 20px; /* Espacio interno para el contenido */
+    padding-top: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra para hacer que el div se destaque */
+    border: 1px solid black; /* Borde del div */
+    border-radius: 16px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(150, 150, 150);
+    display: none;
+}
+.opciones button{
+    width: 150px;
+}
+.cerrar{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 25px;
+}
+#cerrarOpciones{
+    background-color: rgba(150, 150, 150);
+    border: none;
+    width: 20px;
+    color: black;
 }

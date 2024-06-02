@@ -3,21 +3,42 @@ var apuestas = []
 var gano = []
 var ronda = 1
 var cantidad = 0
-var baja = true
+var sube = true
 var chekeado = false
+
+const inputField = document.getElementById('nombreInput');
+
+// Agregar un evento 'keydown' al campo de entrada
+inputField.addEventListener('keydown', function (event) {
+    // Verificar si la tecla presionada es Enter (código de tecla 13)
+    if (event.key === 'Enter') {
+        // Puedes agregar cualquier lógica adicional aquí
+        agregarJugador();
+    }
+});
+
+
+window.addEventListener('load', () => {
+    getJugadores()
+    setRonda();
+    mostrarJugadores();
+});
 
 function jugarRonda() {
     if (chekeado) {
         if (llenarGano()) {
-            llenarApuestas()
+            llenarApuestas();
             agregarApuestas();
             llenarGano();
             verificarApuestas();
+            setCantidad();
             cambioDeMano();
+            guardarJugadores();
             mostrarJugadores();
             chekeado = false
             var chekear = document.getElementById("botonCheck")
-            chekear.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+            chekear.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+
         }
     } else {
         alert("Las apuestas no estan chekeadas")
@@ -69,21 +90,12 @@ function llenarGano() {
 }
 
 function cambioDeMano() {
-    if (ronda == 1) {
-        if (jugadores.length == 7) {
-            cantidad = 7
-        } else {
-            cantidad = 8
-        }
-    }
-    if (ronda != cantidad & baja) {
+    if ((ronda != cantidad) & sube) {
         ronda += 1
     } else {
         ronda -= 1
-        baja = false
+        sube = false
     }
-    console.log("ronda: " + ronda)
-    console.log("cantidad: " + cantidad)
     if (ronda == 0) {
         buscarGanador()
     } else {
@@ -93,6 +105,20 @@ function cambioDeMano() {
         jugadores.push(aux)
     }
 
+}
+
+function setCantidad() {
+    if (jugadores.length == 7) {
+        cantidad = 7
+    } else {
+        cantidad = 8
+    }
+    console.log(cantidad)
+}
+
+function setRonda() {
+    var h1 = document.getElementById("cr")
+    h1.textContent = "CR: " + ronda
 }
 
 function agregarApuestas() {
@@ -125,6 +151,7 @@ function agregarJugador() {
         apuesta: 0
     })
     nombreAux.value = ""
+    guardarJugadores();
     mostrarJugadores();
 }
 
@@ -173,7 +200,7 @@ function mostrarJugadores() {
         inputApuesta.value = jugador.apuesta; // Establecer valor inicial
         divApuesta.appendChild(h2Apuesta);
         divApuesta.appendChild(inputApuesta);
-        */ 
+        */
         //Crear el div apuesta
         var divApuesta = document.createElement("div");
         divApuesta.className = "apuesta";
@@ -183,8 +210,8 @@ function mostrarJugadores() {
         var botonResta = document.createElement("button");
         botonResta.type = "button";
         botonResta.textContent = "-";
-        botonResta.id = "resta"+(index)
-        botonResta.onclick = function() {
+        botonResta.id = "resta" + (index)
+        botonResta.onclick = function () {
             apretoBotonResta(index);
         }
         divResta.appendChild(botonResta)
@@ -193,7 +220,7 @@ function mostrarJugadores() {
         divNumeroApuesta.className = "numeroApuesta"
         var h2Numero = document.createElement("h2")
         h2Numero.textContent = "0"
-        h2Numero.id = "numeroApuesta"+(index)
+        h2Numero.id = "numeroApuesta" + (index)
         divNumeroApuesta.appendChild(h2Numero)
         //Crear el div suma
         var divSuma = document.createElement("div");
@@ -201,8 +228,8 @@ function mostrarJugadores() {
         var botonSuma = document.createElement("button");
         botonSuma.type = "button";
         botonSuma.textContent = "+";
-        botonSuma.id = "suma"+(index)
-        botonSuma.onclick = function() {
+        botonSuma.id = "suma" + (index)
+        botonSuma.onclick = function () {
             apretoBotonSuma(index);
         }
         divSuma.appendChild(botonSuma)
@@ -265,17 +292,12 @@ function apretobotonGano(indice) {
 function eliminarJugador(indice) {
     if (confirm("¿Seguro que deseas eliminar a este jugador?")) {
         jugadores.splice(indice, 1);
+        guardarJugadores();
         mostrarJugadores(); // Volver a mostrar los jugadores actualizados
     }
 }
 
-function cambiarPuntos() {
-    for (var i = 0; i < jugadores.length; i++) {
-        var texto = "Puntos de " + jugadores[i].nombre + " son: " + jugadores[i].puntos
-        jugadores[i].puntos = Number(prompt(texto, jugadores[i].puntos))
-    }
-    mostrarJugadores();
-}
+
 
 function buscarGanador() {
     var p = 0
@@ -289,18 +311,89 @@ function buscarGanador() {
     alert("El ganador fue: " + jugadores[p].nombre + " con " + jugadores[p].puntos + " puntos")
 }
 
-function apretoBotonResta(indice){
-    var textoH2 = document.getElementById("numeroApuesta"+indice)
+function apretoBotonResta(indice) {
+    var textoH2 = document.getElementById("numeroApuesta" + indice)
     var numero = Number(textoH2.innerHTML)
-    if(numero!=0){
-        textoH2.innerHTML = numero-1
+    if (numero != 0) {
+        textoH2.innerHTML = numero - 1
     }
 }
-function apretoBotonSuma(indice){
-    var textoH2 = document.getElementById("numeroApuesta"+indice)
+function apretoBotonSuma(indice) {
+    var textoH2 = document.getElementById("numeroApuesta" + indice)
     var numero = Number(textoH2.innerHTML)
-    if(numero<ronda){
-        textoH2.innerHTML = numero+1
+    if (numero < ronda) {
+        textoH2.innerHTML = numero + 1
     }
-    
+
+}
+
+function guardarJugadores() {
+    const arrayObjetos = jugadores
+    const datosJuego = [
+        { ronda: ronda, cantidad: cantidad, sube: sube }
+    ]
+    // Convertir el array a formato JSON
+    const datosJSON = JSON.stringify(arrayObjetos);
+    const rondaJSON = JSON.stringify(datosJuego);
+    // Guardar los datos en el localStorage
+    localStorage.clear;
+    localStorage.setItem('datos', datosJSON);
+    localStorage.setItem('ronda', rondaJSON);
+}
+
+
+function getJugadores() {
+    const jsonJugadores = localStorage.getItem('datos');
+    const jsonRonda = localStorage.getItem('ronda');
+    const datosJuego = JSON.parse(jsonRonda);
+    if (jsonJugadores) {
+        jugadores = JSON.parse(jsonJugadores);
+        ronda = Number(datosJuego[0].ronda);
+        cantidad = Number(datosJuego[0].cantidad);
+        sube = datosJuego[0].sube;
+    } else {
+        console.log("tu mama es mi novia")
+    }
+    console.log(jugadores)
+    console.log(datosJuego)
+
+}
+
+function abrirOpciones() {
+    var abrirOpciones = document.getElementById('opciones')
+    abrirOpciones.style.display = 'flex'
+}
+
+function cerrarOpciones() {
+    var cerrarOpciones = document.getElementById('opciones')
+    cerrarOpciones.style.display = 'none'
+}
+
+function nuevaPartida() {
+    jugadores = []
+    ronda = 1;
+    cantidad = 0;
+    sube = true;
+    cerrarOpciones();
+    guardarJugadores();
+    mostrarJugadores();
+    setRonda();
+}
+
+function cambiarRonda() {
+    alert("TODO")
+}
+
+function cambiarPuntos() {
+    for (var i = 0; i < jugadores.length; i++) {
+        var texto = "Puntos de " + jugadores[i].nombre + " son: " + jugadores[i].puntos
+        jugadores[i].puntos = Number(prompt(texto, jugadores[i].puntos))
+    }
+    guardarJugadores();
+    mostrarJugadores();
+}
+
+function mostrarConsola() {
+    console.log(jugadores);
+    console.log("ronda: ", ronda)
 }
