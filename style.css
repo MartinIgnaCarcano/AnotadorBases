@@ -22,12 +22,12 @@ button:active{
 .header{
     padding-top: 10px;
     width: 100vw;
-    height: 20vh;
+    height: 18vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
     background-color: rgba(0, 0, 0, 0.5);
 }
 .header input{
