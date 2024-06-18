@@ -297,14 +297,12 @@ function eliminarJugador(indice) {
     }
 }
 
-
-
 function buscarGanador() {
     var p = 0
     for (var i = 1; i < jugadores.length; i++) {
         if (jugadores[i].puntos > jugadores[p].puntos) {
             p = i
-        } else if (jugadores[i].puntos = jugadores[p].puntos) {
+        } else if (jugadores[i].puntos == jugadores[p].puntos) {
             alert("REVISAR PORQUE PUEDE HABER EMPATE")
         }
     }
@@ -312,19 +310,23 @@ function buscarGanador() {
 }
 
 function apretoBotonResta(indice) {
-    var textoH2 = document.getElementById("numeroApuesta" + indice)
-    var numero = Number(textoH2.innerHTML)
-    if (numero != 0) {
-        textoH2.innerHTML = numero - 1
+    if (!chekeado) {
+        var textoH2 = document.getElementById("numeroApuesta" + indice)
+        var numero = Number(textoH2.innerHTML)
+        if (numero != 0) {
+            textoH2.innerHTML = numero - 1
+        }
     }
 }
-function apretoBotonSuma(indice) {
-    var textoH2 = document.getElementById("numeroApuesta" + indice)
-    var numero = Number(textoH2.innerHTML)
-    if (numero < ronda) {
-        textoH2.innerHTML = numero + 1
-    }
 
+function apretoBotonSuma(indice) {
+    if (!chekeado) {
+        var textoH2 = document.getElementById("numeroApuesta" + indice)
+        var numero = Number(textoH2.innerHTML)
+        if (numero < ronda) {
+            textoH2.innerHTML = numero + 1
+        }
+    }
 }
 
 function guardarJugadores() {
@@ -340,7 +342,6 @@ function guardarJugadores() {
     localStorage.setItem('datos', datosJSON);
     localStorage.setItem('ronda', rondaJSON);
 }
-
 
 function getJugadores() {
     const jsonJugadores = localStorage.getItem('datos');

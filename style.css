@@ -18,7 +18,9 @@ button:active{
     background-color: white;
     color: black;
 }
+
 .header{
+    padding-top: 10px;
     width: 100vw;
     height: 20vh;
     display: flex;
@@ -45,6 +47,7 @@ input::-webkit-input-placeholder { /* WebKit, Safari, Chrome */
     font-size: medium;
 }
 .pantalla{
+    padding-top: 10px;
     width: 100vw;
     height: 72vh;
     background-color: rgba(0, 0, 0, 0.5);
@@ -110,17 +113,16 @@ input::-webkit-input-placeholder { /* WebKit, Safari, Chrome */
     color: black;
 }
 .opciones{
-   
-    position: fixed; /* Fija el div en la posición relativa a la ventana del navegador */
-    top: 50%; /* Coloca el div en el medio verticalmente */
-    left: 50%; /* Coloca el div en el medio horizontalmente */
-    transform: translate(-50%, -50%); /* Ajusta la posición para centrar exactamente */
-    z-index: 9999; /* Asegura que el div esté por encima de todos los demás elementos */
-    background-color: white; /* Fondo blanco para que se vea claro */
-    padding: 20px; /* Espacio interno para el contenido */
+    position: fixed; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 9999; 
+    background-color: white; 
+    padding: 20px; 
     padding-top: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra para hacer que el div se destaque */
-    border: 1px solid black; /* Borde del div */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+    border: 1px solid black; 
     border-radius: 16px;
     height: 200px;
     width: 200px;
